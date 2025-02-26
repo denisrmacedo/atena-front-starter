@@ -27,10 +27,9 @@ const RootLayout = async (props: ChildrenType) => {
   // Vars
 
   const systemMode = await getSystemMode()
-  const direction = 'ltr'
 
   return (
-    <html id='__next' lang='en' dir={direction} suppressHydrationWarning>
+    <html id='__next' lang='en' dir='ltr' suppressHydrationWarning>
       <body className='flex is-full min-bs-full flex-auto flex-col'>
         <InitColorSchemeScript attribute='data' defaultMode={systemMode} />
         {children}

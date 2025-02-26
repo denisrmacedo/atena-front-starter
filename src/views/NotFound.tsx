@@ -37,7 +37,7 @@ const NotFound = ({ mode }: { mode: Mode }) => {
           className='object-cover bs-[400px] md:bs-[450px] lg:bs-[500px]'
         />
         <Button href='/' component={Link} variant='contained'>
-          Back to Home
+          Voltar para o início
         </Button>
       </div>
       <img src={miscBackground} className='absolute bottom-0 z-[-1] is-full max-md:hidden' />

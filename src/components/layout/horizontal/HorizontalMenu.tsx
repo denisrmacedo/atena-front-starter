@@ -77,10 +77,10 @@ const HorizontalMenu = () => {
         }}
       >
         <MenuItem href='/' icon={<i className='ri-home-smile-line' />}>
-          Home
+          Início
         </MenuItem>
         <MenuItem href='/about' icon={<i className='ri-information-line' />}>
-          About
+          Sobre
         </MenuItem>
       </Menu>
       {/* <Menu

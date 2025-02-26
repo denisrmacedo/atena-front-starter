@@ -29,9 +29,9 @@ type LogoTextProps = {
 }
 
 const LogoText = styled.span<LogoTextProps>`
-  font-size: 1.25rem;
-  line-height: 1.2;
-  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.0;
+  font-weight: 500;
   letter-spacing: 0.15px;
   text-transform: capitalize;
   color: var(--mui-palette-text-primary);
@@ -72,7 +72,7 @@ const Logo = ({ color }: { color?: CSSProperties['color'] }) => {
   }, [isHovered, layout, isBreakpointReached])
 
   return (
-    <div className='flex items-center min-bs-[24px]'>
+    <div className='flex flex-col items-center min-bs-[24px]'>
       <MaterializeLogo />
       <LogoText
         color={color}
@@ -82,7 +82,7 @@ const Logo = ({ color }: { color?: CSSProperties['color'] }) => {
         transitionDuration={transitionDuration}
         isBreakpointReached={isBreakpointReached}
       >
-        {themeConfig.templateName}
+        Aurora
       </LogoText>
     </div>
   )

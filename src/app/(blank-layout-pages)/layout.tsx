@@ -14,11 +14,10 @@ const Layout = async (props: Props) => {
   const { children } = props
 
   // Vars
-  const direction = 'ltr'
   const systemMode = await getSystemMode()
 
   return (
-    <Providers direction={direction}>
+    <Providers direction='rtl'>
       <BlankLayout systemMode={systemMode}>{children}</BlankLayout>
     </Providers>
   )
