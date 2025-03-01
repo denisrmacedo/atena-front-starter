@@ -33,9 +33,6 @@ import type { Mode } from '@core/types'
 // Component Imports
 import Logo from '@components/layout/shared/Logo'
 
-// Config Imports
-import themeConfig from '@configs/themeConfig'
-
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant'
 import { useSettings } from '@core/hooks/useSettings'
@@ -56,6 +53,7 @@ const schema = object({
 })
 
 const Login = ({ mode }: { mode: Mode }) => {
+
   // States
   const [isPasswordShown, setIsPasswordShown] = useState(false)
   const [errorState, setErrorState] = useState<ErrorType | null>(null)
@@ -116,6 +114,7 @@ const Login = ({ mode }: { mode: Mode }) => {
 
     if (res?.status === 401) {
       setErrorState({ message: ['Usuário ou senha inválidos'] })
+
       return;
     }
 
@@ -153,12 +152,12 @@ const Login = ({ mode }: { mode: Mode }) => {
       </div>
       <div className='flex justify-center items-center bs-full bg-backgroundPaper !min-is-full p-6 md:!min-is-[unset] md:p-12 md:is-[480px]'>
         <div className='absolute block-start-5 sm:block-start-[38px] inline-start-6 sm:inline-start-[38px]'>
-          <Logo />
+          <Logo maximized={true} />
         </div>
         <div className='flex flex-col gap-5 is-full sm:is-auto md:is-full sm:max-is-[400px] md:max-is-[unset]'>
           <div>
-            <Typography variant='h4'>Seja bem-vindo ao Aurora</Typography>
-            <Typography>Entre com suas credenciais e inicie sua jornada</Typography>
+            <Typography variant='h4'>Olá, seja bem-vindo 👋</Typography>
+            <Typography>Informe suas credenciais e inicie sua jornada</Typography>
           </div>
           <Alert icon={false} className='bg-[var(--mui-palette-primary-lightOpacity)]'>
             <Typography variant='body2' color='primary.main'>
@@ -243,7 +242,7 @@ const Login = ({ mode }: { mode: Mode }) => {
               </Typography>
             </div>
             <Button fullWidth variant='contained' type='submit'>
-              Log In
+              Iniciar
             </Button>
             <div className='flex justify-center items-center flex-wrap gap-2'>
               <Typography>Novo em nossa plataforma?</Typography>

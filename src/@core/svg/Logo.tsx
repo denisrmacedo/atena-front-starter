@@ -1,5 +1,5 @@
 // React Imports
-import type { SVGAttributes } from 'react'
+// import type { SVGAttributes } from 'react'
 
 // const Logo = (props: SVGAttributes<SVGElement>) => {
 //   return (
@@ -76,9 +76,13 @@ import type { SVGAttributes } from 'react'
 //   )
 // }
 
-const Logo = (props: SVGAttributes<SVGElement>) => {
+const Logo = ({ isCollapsed }: { isCollapsed?: boolean }) => {
   return (
-    <img src='/images/logos/aurora-z.png' alt='Aurora' width={100} />
+    <img
+      alt='Aurora'
+      src={`/images/logos/aurora-${!isCollapsed ? 'logo' : 'icone'}.png`}
+      width={!isCollapsed ? 100 : 50}
+    />
   )
 }
 

@@ -13,9 +13,6 @@ import type { VerticalNavContextProps } from '@menu/contexts/verticalNavContext'
 // Component Imports
 import MaterializeLogo from '@core/svg/Logo'
 
-// Config Imports
-import themeConfig from '@configs/themeConfig'
-
 // Hook Imports
 import useVerticalNav from '@menu/hooks/useVerticalNav'
 import { useSettings } from '@core/hooks/useSettings'
@@ -29,7 +26,7 @@ type LogoTextProps = {
 }
 
 const LogoText = styled.span<LogoTextProps>`
-  font-size: 1.4rem;
+  /* font-size: 1.2rem; */
   line-height: 1.0;
   font-weight: 500;
   letter-spacing: 0.15px;
@@ -41,11 +38,11 @@ const LogoText = styled.span<LogoTextProps>`
 
   ${({ isHovered, isCollapsed, isBreakpointReached }) =>
     !isBreakpointReached && isCollapsed && !isHovered
-      ? 'opacity: 0; margin-inline-start: 0;'
-      : 'opacity: 1; margin-inline-start: 8px;'}
+      ? 'margin-inline-start: 0; font-size: 0.8rem;'
+      : 'margin-inline-start: 8px; font-size: 1.4rem;'}
 `
 
-const Logo = ({ color }: { color?: CSSProperties['color'] }) => {
+const Logo = ({ maximized, color }: { maximized?: boolean, color?: CSSProperties['color'] }) => {
   // Refs
   const logoTextRef = useRef<HTMLSpanElement>(null)
 
@@ -56,29 +53,14 @@ const Logo = ({ color }: { color?: CSSProperties['color'] }) => {
   // Vars
   const { layout } = settings
 
-  useEffect(() => {
-    if (layout !== 'collapsed') {
-      return
-    }
-
-    if (logoTextRef && logoTextRef.current) {
-      if (!isBreakpointReached && layout === 'collapsed' && !isHovered) {
-        logoTextRef.current?.classList.add('hidden')
-      } else {
-        logoTextRef.current.classList.remove('hidden')
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isHovered, layout, isBreakpointReached])
-
   return (
-    <div className='flex flex-col items-center min-bs-[24px]'>
-      <MaterializeLogo />
+    <div className={'flex flex-col items-center min-bs-[24px]'}>
+      <MaterializeLogo isCollapsed={!maximized && !isHovered && (layout === 'collapsed')} />
       <LogoText
         color={color}
         ref={logoTextRef}
         isHovered={isHovered}
-        isCollapsed={layout === 'collapsed'}
+        isCollapsed={!maximized && (layout === 'collapsed')}
         transitionDuration={transitionDuration}
         isBreakpointReached={isBreakpointReached}
       >
