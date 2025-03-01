@@ -1,7 +1,7 @@
 'use client'
 
 // React Imports
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import type { CSSProperties } from 'react'
 
 // Third-party Imports

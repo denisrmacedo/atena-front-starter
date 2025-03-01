@@ -7,6 +7,7 @@ import { useState, useMemo } from 'react'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import Chip from '@mui/material/Chip'
+import { styled } from '@mui/material'
 
 // Third-party Imports
 import classnames from 'classnames'
@@ -38,7 +39,7 @@ import { getInitials } from '@/utils/getInitials'
 // Style Imports
 import tableStyles from '@core/styles/table.module.css'
 import { UsuarioSituacao, type Usuario } from '@/types/base/alfa/usuario/usuario.model'
-import { styled } from '@mui/material'
+
 
 declare module '@tanstack/table-core' {
   interface FilterFns {
@@ -51,18 +52,6 @@ declare module '@tanstack/table-core' {
 
 type UsuarioWithAction = Usuario & {
   action?: string
-}
-
-// type UserRoleType = {
-//   [key: string]: { icon: string; color: string }
-// }
-
-type UserStatusType = {
-  [key: string]: ThemeColor
-}
-
-type UserStatusNome = {
-  [key: string]: string
 }
 
 const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
@@ -90,28 +79,19 @@ const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
 // Styled Components
 const Icon = styled('i')({})
 
-const usuarioSituacaoTheme: UserStatusType = {
-  1: 'success',
-  2: 'warning',
-  3: 'secondary'
-}
-
-const usuarioSituacaoNome: UserStatusNome = {
-  1: 'ativo',
-  2: 'suspenso',
-  3: 'secondary'
-}
-
 const usuarioSituacaoProps = (situacao: number): { name: string; color: ThemeColor } => {
   if (situacao === UsuarioSituacao.Ativo) {
     return { name: 'Ativo', color: 'success' }
   }
+
   if (situacao === UsuarioSituacao.Suspenso) {
     return { name: 'Suspenso', color: 'warning' }
   }
+
   if (situacao === UsuarioSituacao.Banido) {
     return { name: 'Banido', color: 'error' }
   }
+
   return { name: 'Inativo', color: 'secondary' }
 }
 
@@ -119,12 +99,15 @@ const usuarioPerfisProps = (perfis: string): { icon: string; color: string } => 
   if (perfis.startsWith('Super ')) {
     return { icon: 'ri-award-line', color: 'error' }
   }
+
   if (perfis.startsWith('Administrador')) {
     return { icon: 'ri-vip-crown-line', color: 'warning' }
   }
+
   if (perfis.startsWith('Supervisor')) {
     return { icon: 'ri-spy-line', color: 'info' }
   }
+
   return { icon: 'ri-user-3-line', color: 'primary' }
 }
 

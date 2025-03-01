@@ -1,19 +1,22 @@
 'use client'
 
+import { useEffect, useState } from 'react';
+
 import Grid from '@mui/material/Grid2'
 
 import useFetch from "@/libs/useFetch";
 import { useToken } from "@/libs/useToken";
 import type { Usuario } from "@/types/base/alfa/usuario/usuario.model";
+import type { DashboardResumo } from '@/types/avaliacao/dashboard/dashboard-resumo.model';
 import UsuarioPlanilha from "@/views/base/alfa/usuario/UsuarioPlanilha";
 import Saudacoes from '@/views/avaliacao/dashboard/Saudacoes';
 import CardStatVertical from '@/views/avaliacao/dashboard/Vertical';
-import { DashboardResumo } from '@/types/avaliacao/dashboard/dashboard-resumo.model';
-import { useEffect, useState } from 'react';
 
 export default function Page() {
 
   const token = useToken()
+
+  console.log('token', token)
 
   const { data: resumoAnterior, error: resumoAnteriorError } = useFetch<DashboardResumo>('/avaliacao/analise/dashboard/resumo?intervalo=-semana')
 
@@ -28,8 +31,10 @@ export default function Page() {
     if (resumoAtual && resumoAnterior) {
       setPercentualUsuarios(((resumoAtual.usuarios - resumoAnterior.usuarios) / (resumoAnterior.usuarios || 1)) * 100);
       setPercentualAutorizacoes(((resumoAtual.autorizacoes - resumoAnterior.autorizacoes) / (resumoAnterior.autorizacoes || 1)) * 100);
+
       return;
     }
+
     setPercentualUsuarios(0);
     setPercentualAutorizacoes(0);
   }, [resumoAnterior, resumoAtual]);

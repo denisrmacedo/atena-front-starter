@@ -2,13 +2,13 @@ import { useSession } from 'next-auth/react'
 
 // MUI Imports
 import Card from '@mui/material/Card'
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid2'
 
 const Saudacoes = () => {
   const { data: session } = useSession()
+
   return (
     <Card className='relative bs-full'>
       <CardContent className='sm:pbe-0'>
