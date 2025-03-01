@@ -1,4 +1,3 @@
-import { email } from 'valibot';
 // Third-party Imports
 import CredentialProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
@@ -7,16 +6,19 @@ import GoogleProvider from 'next-auth/providers/google'
 
 //import { PrismaClient } from '@prisma/client'
 import type { NextAuthOptions } from 'next-auth'
+import type { JWT } from 'next-auth/jwt'
 
 //import type { Adapter } from 'next-auth/adapters'
 
 //const prisma = new PrismaClient()
+
 
 export const authOptions: NextAuthOptions = {
   // adapter: PrismaAdapter(prisma) as Adapter,
 
   // ** Configure one or more authentication providers
   // ** Please refer to https://next-auth.js.org/configuration/options#providers for more `providers` options
+  debug: true,
   providers: [
     CredentialProvider({
       // ** The name to display on the sign in form (e.g. 'Sign in with...')
@@ -73,6 +75,7 @@ export const authOptions: NextAuthOptions = {
               name: data.usuario.name,
               image: null,
             }
+
             return data
           }
 
@@ -121,30 +124,59 @@ export const authOptions: NextAuthOptions = {
      * the `session()` callback. So we have to add custom parameters in `token`
      * via `jwt()` callback to make them accessible in the `session()` callback
      */
+
+    // async jwt({ token, user, account, profile, isNewUser }) {
+    //   if (user) {
+    //     token.id = user.id;
+    //   }
+    //   if (account) {
+    //     token.accessToken = account.access_token;
+    //   }
+    //   return token;
+    // },
+
+    // async session({ session, token, user }) {
+    //   session.user.id = token.id;
+    //   session.accessToken = token.accessToken;
+    //   return session;
+    // },
+
     async jwt({ token, user }) {
       if (user) {
         /*
          * For adding custom parameters to user in session, we first need to add those parameters
          * in token which then will be available in the `session()` callback
          */
-        //token.name = user.name
         const autorizacao: any = user
+
         token.name = autorizacao.usuario.nome
         token.email = autorizacao.chave
         token.picture = autorizacao.usuario.imagem
-        //throw new Error('error ' + JSON.stringify(user));
+        token.accessToken = autorizacao.token
       }
 
       return token
     },
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: JWT }) {
       if (session.user) {
         // ** Add custom params to user in session which are added in `jwt()` callback via `token` parameter
         session.user.name = token.name
         session.user.image = token.picture
+        session.user.accessToken = token.accessToken
       }
 
       return session
+    }
+  },
+  logger: {
+    error(code, metadata) {
+      console.error(code, metadata)
+    },
+    warn(code) {
+      console.warn(code)
+    },
+    debug(code, metadata) {
+      console.debug(code, metadata)
     }
   }
 }
